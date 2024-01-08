@@ -17,11 +17,11 @@ import lombok.Data;
 @Data
 @Entity(name = "candidate")
 public class CandidateEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    
+
     private String name;
 
     @Pattern(regexp = "\\S+", message = "O campo [username] não deve conter espaço")
@@ -30,7 +30,7 @@ public class CandidateEntity {
     @Email(message = "O campo [email] deve ser um email válido")
     private String email;
 
-    @Length(min = 10, max = 100, message = "O campo [password] deve ter entre 10 e 100 caracteres")
+    @Length(min = 6, max = 100, message = "O campo [password] deve ter entre 6 e 100 caracteres")
     private String password;
     private String description;
     private String curriculum;
