@@ -1,5 +1,8 @@
 package br.com.tkn.gestao_vagas.modules.company.useCases;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import javax.security.sasl.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,7 @@ public class AuthCompanyUseCase {
 
 		var token = JWT.create()
 				.withIssuer("tkn")
+				.withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
 				.withSubject(company.getId().toString())
 				.sign(algorithm);
 
