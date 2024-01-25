@@ -12,27 +12,28 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 public class SecurityConfig {
 
-	@Autowired
-	private SecurityFilter securityFilter;
+  @Autowired
+  private SecurityFilter securityFilter;
 
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/candidate/").permitAll()
-							.requestMatchers("/company/").permitAll()
-							.requestMatchers("/auth/company").permitAll();
+  @Bean
+  SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(auth -> {
+          auth.requestMatchers("/candidate/").permitAll()
+              .requestMatchers("/company/").permitAll()
+              .requestMatchers("/auth/company").permitAll()
+              .requestMatchers("/candidate/auth").permitAll();
 
-					auth.anyRequest().authenticated();
-				})
-				.addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
+          auth.anyRequest().authenticated();
+        })
+        .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
 
-		return http.build();
-	}
+    return http.build();
+  }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
 }
